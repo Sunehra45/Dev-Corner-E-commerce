@@ -1,0 +1,194 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
+
+*{
+    margin: 0;padding: 0;
+}
+:root{
+    --font-size: 1.5rem;
+    --dark-grey : #3d3a36;
+    --light-grey : #e8e8e3;
+    --white:#feffff;
+    --space: 20px;
+    --heading-font : ;
+    --Navigation-font:'Sulphur Point'; 
+    --transition: 0.3s ease-in-out ;
+    --transitionOut: 0.3s ease-out ;
+   }
+ html, body{
+    scroll-behavior: smooth;
+}
+
+body{
+    background-color: var(--light-grey);
+    box-sizing: border-box;
+    margin: 0;
+    overflow-x: hidden; 
+}
+/* Code For Header - NavBar */
+header{
+    width: 100vw;
+    height: 10vh;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin: 0 auto;
+    position: sticky;
+    top: 0%;
+    z-index: 100;
+    transition: var(--transitionOut);
+}
+.scrolled{
+    background-color: #e7ddcf;
+}
+h1{
+    font-family: "Raleway", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 300;
+    font-size: 70px;
+    margin-top: 08vw;
+    margin-left: 5vw;
+}
+p{
+   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 1.5rem;
+    text-align: center;
+    font-weight: lighter;
+    margin: 1vw 3vw;
+}
+.logo{
+    width: 10%;
+    height: 100%;      
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#logo{
+width: 200px;
+margin-top: var(--space);
+}
+#search,#profile,#cart {
+    width: 35px;
+}
+nav{
+    width: 20%;
+    height: 100%;
+    display: flex;
+    justify-content:flex-start;
+    align-items: center;
+}
+ul {
+    display: flex;
+    gap: 25px;
+}
+ul li{
+    list-style: none;
+    font-size: var(--font-size);
+    font-family: var(--Navigation-font);
+    cursor: pointer;
+}
+li:hover{
+    transform: translateY(-08px);
+    transition: var(--transition);
+  }
+.search-bar{
+    width: 30%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+.search-bar input{
+   background-color: rgb(255, 255, 255);
+    border: none;
+    width: 70%;
+    height: 60%;
+    border-radius: 4px;
+    padding-left: 15px;
+}
+::placeholder {
+    font-size: 18px;
+}
+.personalization{
+    width: 20%;
+    height: 100%;
+    /* background-color: palegreen; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+}
+/* Coder For Hero Section content */
+section{
+    width: 100vw;
+    height: 90vh;
+     overflow-x: hidden;
+     box-sizing: border-box;
+     display: grid;
+     grid-template-columns: 1fr 1fr;
+     grid-template-rows: auto auto; 
+     row-gap: 0px;
+}
+.left-content, .right-content{
+    height: 80vh;  
+}
+.right-content{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid black;
+}
+.Slider{
+    width: 32vw;
+    height: 70%;
+    border: 2px solid;
+    position: absolute;
+}
+.Slider img{
+    object-fit: cover;
+    height: 100%;
+    position: absolute;
+}
+/* Animated logos  */
+.logos-slider{
+    background-color: grey;
+    grid-column: 1 / -1;
+    height: 10vh;
+    border: 2pxx solid;
+}
+/* Products Showcase Code */
+.products{
+    margin: 5% 6%;
+    width: 100vw;
+    height: fit-content;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+}
+.card{
+    width: 20vmax;
+    height: 50vh;
+    border: 2px solid;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+.product-info , .buy{
+    display: flex;
+}
+.product-img{
+    width: 80%;
+    height: 60%;
+    border: 2px solid;
+}
+footer{
+    width: 100vw;
+    height: 10vh;
+    margin-bottom: 0px;
+    margin-top: 5vh;
+    background-color: gray;
+    text-align: center;
+    line-height: 100px;
+    font-family: var(--Navigation-font);
+}

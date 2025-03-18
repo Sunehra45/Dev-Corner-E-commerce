@@ -1,0 +1,84 @@
+@import url('https://fonts.googleapis.com/css2?family=Sulphur+Point:wght@300;400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&display=swap');
+*{
+    margin: 0;padding: 0;
+}
+
+
+.section{
+    position: absolute;
+    width: 90vw;
+    height: 80vh;
+    margin-left: 3vh;
+    background-color: violet;
+    display: grid;
+    grid-template-columns: [left-side] 45vw [right-side] 50vw; /* Two equal columns */     
+}
+ .left-content, .right-content{
+ height: 80vh; 
+ border: 2px solid black; 
+}
+.right-content{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.right-content .ball-animation{
+    width: 20px;
+    height: 20px;
+    position: relative;
+    background-color: #3d3a36;
+    border-radius: 50%;
+       animation:   animate-X 2s linear infinite ;
+       /* animate-Y 1s ease-out infinite alternate ;  */
+     margin-left: 2vw;
+}
+@keyframes animate-X {
+    0%{
+        left: 0%;
+    }
+     
+    75%{
+        left: 5%;
+        background-color: green;
+    }
+    100%{
+        left: 10%;
+        background-color: red;
+    } 
+
+    }
+ @keyframes animate-Y{
+    0%{
+    transform: translateY(0px);
+    }
+    50%{
+    transform: translateY(100px);
+    }
+    75%{
+        transform: translateY(100px);
+    }
+    100%{
+        transform: translateY(-10px); 
+    } 
+}
+.right-content .Slider {
+    width: 35%;
+    height: 70%;
+    position: absolute;
+    background-color: purple;
+    overflow: hidden; /* Optional: Hides overflowing images */
+}
+.Slider img {
+    width: 80%;
+    height: 100%; /* Ensures images cover parent height */
+    position: absolute;
+    object-fit: cover; /* Prevents image distortion */
+}
+.logos-slider{
+    width: 100%;
+    height: 10vh;
+    background-color:var(--dark-grey);
+    top: 80%;
+}
