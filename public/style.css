@@ -152,11 +152,90 @@ section{
 }
 /* Animated logos  */
 .logos-slider{
-    background-color: grey;
+    /* background-color: grey; */
     grid-column: 1 / -1;
     height: 10vh;
     border: 2pxx solid;
+    display: flex;
+    align-items: center;
+    gap: 200px;
+    overflow: hidden;
 }
+.item{
+    width: 20%;
+    height: 08vh;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    left: 100%;
+    animation: automove 20s linear infinite;
+    animation-delay: calc((10s /10) * (var(--position) - 1))!important;
+}
+.item img{
+width: 120px;
+height: 120px;
+object-fit: cover;
+}
+@keyframes automove {
+    0%{
+        left :100%
+    }
+    100%{
+        left : -100%
+    }
+}
+.Personalized-Feature{
+    display: flex;
+    gap: 30px;
+    position: relative;
+    left: 75vw;
+    width: 20vw;
+    top: 12vh;
+}
+.Personalized-Feature button{
+    font-family: var(--Navigation-font);
+    font-size: 1.2rem;
+    padding: 10px;
+    background:none;
+    border: none;
+    cursor: pointer;
+}
+/* Filter Feature */
+.filter-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 20vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 20px;
+    z-index: 2000;
+    transition: transform 0.3s ease-in-out;
+}
+.hidden {
+    transform: translateX(-100%);
+}
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 24px;
+    cursor: pointer;
+    z-index: 1000;
+}
+
+
+
+
+
+
+
+
+
+
+
+
 /* Products Showcase Code */
 .products{
     margin: 5% 6%;
@@ -165,6 +244,7 @@ section{
     display: flex;
     flex-wrap: wrap;
     gap: 30px;
+    margin-top: 8vw;
 }
 .card{
     width: 20vmax;
@@ -192,3 +272,5 @@ footer{
     line-height: 100px;
     font-family: var(--Navigation-font);
 }
+
+

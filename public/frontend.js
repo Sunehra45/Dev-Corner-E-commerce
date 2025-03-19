@@ -18,3 +18,23 @@ else {
     header.classList.remove("scrolled");
 }
 })
+
+//toggle filter section:
+let openfilter = document.querySelector('.open-filter'); 
+let closefilter = document.querySelector('.close-btn');
+
+function toggleFilter() {
+ document.getElementById("filterBox").classList.toggle("hidden");
+
+}
+closefilter.addEventListener('click',toggleFilter);
+openfilter.addEventListener('click',()=>{
+    toggleFilter();
+    if(toggleFilter){
+        if (openfilter.innerText === "Show Filter") {
+            openfilter.innerText = "Hide Filter";
+        } else {
+            openfilter.innerText = "Show Filter";
+        }
+    }
+});
