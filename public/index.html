@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
     <header>
         <div class="logo">   <img src="./images/logo (1).png" alt="logo"id="logo">
         </div>
@@ -26,6 +27,7 @@
         <img src="./images/profile.png" alt="profile" id="profile">
      </div>
     </header>
+
     <section>
         <div class="left-content">
             <!-- <h1> Power Up Your Life with the Best Tech.</h1> -->
@@ -43,7 +45,7 @@
                 <img src="./images/img 4.png" loading="lazy"  alt="laptop"> 
             </div></div>
 
-            <div class="logos-slider" > 
+            <!-- <div class="logos-slider" > 
             <div class="item"style="--position: 1;"  ><img src="images/1.png" alt=""  ></div>
             <div class="item"style="--position: 2;"  ><img src="images/2.png" alt=""></div>
             <div class="item"style="--position: 3;" ><img src="images/3.png" alt="" ></div>
@@ -53,22 +55,87 @@
             <div class="item"style="--position: 7;" ><img src="images/4.png" alt="" ></div>
             <div class="item"style="--position: 8;" ><img src="images/4.png" alt="" ></div>
             <div class="item"style="--position: 9;" ><img src="images/4.png" alt="" ></div>
-            <div class="item"style="--position: 10;" ><img src="images/4.png" alt="" ></div>
+            <div class="item"style="--position: 10;" ><img src="images/4.png" alt="" ></div> -->
         
             </div>
     </section>
+
   <main>
     <div class=" Personalized-Feature ">
-        <button class="open-filter">Show Filter</button>
+        <div class="filter">
+            <button class="open-filter"> Show Filter</button>
+            <img src="images/filter-icon-0.png" id="filter" alt="filter-icon">
+        </div>
+       
         <button>Sort By  <select name="SortFeature" id="Sort"></select></button>
     </div>
     <hr>
-  
+
+    <div class="slection">
+        <div class="selected"></div>
+    </div>
 
     <div class="filter-container hidden" id="filterBox">
         <span class="close-btn">X</span>
         <h2>Filter Options</h2>
-        <!-- Add your filter options here -->
+       <div class="options">
+        <div class="Availability filterOption">
+            <h3>Avialability</h3>
+            <label>
+                <input type="checkbox" name="availability" value="in-stock"> In Stock
+            </label>
+            <label>
+                <input type="checkbox" name="availability" value="pre-order"> Pre-Order
+            </label>
+            <label>
+                <input type="checkbox" name="availability" value="out-of-stock"> Out of Stock
+            </label>
+        </div>
+       <hr style="margin-top: 3vh;">
+       <div class="Category filterOption">
+        <h3>Category </h3>
+        <label>
+            <input type="checkbox" name="category" value="Laptops"> Laptops
+        </label>
+        <label>
+            <input type="checkbox" name="category" value="smartphones"> Smartphones
+        </label>
+        <label>
+            <input type="checkbox" name="category" value="Tablets"> Tablets
+        </label>
+        <label>
+            <input type="checkbox" name="category" value="Smartwatches"> Smartwatches
+        </label>
+        <label>
+            <input type="checkbox" name="category" value="Gaming-consoles"> Gaming Consoles
+        </label>
+        <label>
+            <input type="checkbox" name="category" value="Accessories"> Accessories
+        </label>
+    </div>
+    <hr style="margin-top: 3vh;">
+    <div class="Features filterOption">
+        <h3>Features</h3>
+        <label>
+            <input type="checkbox" name="features" value="5g"> 5G Connectivity
+        </label>
+        <label>
+            <input type="checkbox" name="features" value="Touchscreen"> Touchscreen
+        </label>
+        <label>
+            <input type="checkbox" name="features" value="Face-id"> Face ID / Fingerprint Sensor
+        </label>
+        <label>
+            <input type="checkbox" name="features" value="High-refresh"> High Refresh Rate (120Hz, 144Hz, etc.)
+        </label>
+        <label>
+            <input type="checkbox" name="features" value="Backlit-keyboard"> Backlit Keyboard
+        </label>
+        <label>
+            <input type="checkbox" name="features" value="Water-resistant"> Water & Dust Resistance
+        </label>
+    </div>
+       </div>
     </div>
     <div class="products">
         <div class="card">
@@ -133,8 +200,9 @@
         </div>
     </div>
   </main>
+
   <footer>
-    <p>&copy; Made with love by Sunehra. All rights reserved.</p>
+    &copy; Made with love by Sunehra. All rights reserved.
   </footer>
   <script src="frontend.js"></script>
 </body>
