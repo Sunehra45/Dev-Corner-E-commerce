@@ -10,7 +10,7 @@ BuyBtn.forEach(btn => {
 
 //navbar bg active
 window.addEventListener('scroll',function(){
-if(this.window.scrollY > window.innerHeight){
+if(window.innerHeight + window.scrollY > window.outerHeight - 10){
     header.classList.add("scrolled");
 }
 else {
@@ -67,8 +67,26 @@ checkboxes.forEach(checkbox => {
     })
 });
 
-
 let removeFilter = document.querySelectorAll('#cross');
-// removeFilter.addEventListener('click',()=>{
 
-// })
+// products data show --fetch from backend
+let allProducts = document.querySelector('.products');
+for(let i = 0 ; i<20 ; i++){
+    let newProduct = document.createElement('div');
+    newProduct.classList.add('card');
+    let name = document.createElement('h3');
+    allProducts.appendChild(newProduct);
+}
+
+let products ;
+async function fetchdata (){
+    try{
+        const response =  await fetch("http://localhost:3000/products");
+        products = response.json();
+        console.log(products);
+    }
+    catch{
+        console.error("Error fetching products:", error);
+    }
+}
+fetchdata();

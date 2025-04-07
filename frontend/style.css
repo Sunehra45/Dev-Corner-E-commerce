@@ -89,6 +89,7 @@ ul li{
 li:hover{
     transform: translateY(-08px);
     transition: var(--transition);
+    color : blue;
   }
 .search-bar{
     width: 30%;

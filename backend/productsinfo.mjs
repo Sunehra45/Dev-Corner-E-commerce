@@ -210,5 +210,4 @@ const productsinfo = [
         "description": "High-capacity power bank for charging on the go."
     }
 ]
-
-module.exports = productsinfo ;
+export default productsinfo ;
