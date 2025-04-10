@@ -1,13 +1,4 @@
 let header = document.querySelector('header');
-let BuyBtn = document.querySelectorAll('.buy');
-console.log(BuyBtn);
-
-BuyBtn.forEach(btn => {
-    btn.addEventListener("click",()=>{
-        console.log("yup clicked this time ")
-    })
-});
-
 //navbar bg active
 window.addEventListener('scroll',function(){
 if(window.innerHeight + window.scrollY > window.outerHeight - 10){
@@ -70,23 +61,62 @@ checkboxes.forEach(checkbox => {
 let removeFilter = document.querySelectorAll('#cross');
 
 // products data show --fetch from backend
-let allProducts = document.querySelector('.products');
-for(let i = 0 ; i<20 ; i++){
-    let newProduct = document.createElement('div');
-    newProduct.classList.add('card');
-    let name = document.createElement('h3');
-    allProducts.appendChild(newProduct);
-}
 
-let products ;
+let name;
+let category;
+let description; 
+let price ;
+
 async function fetchdata (){
-    try{
-        const response =  await fetch("http://localhost:3000/products");
-        products = response.json();
-        console.log(products);
+     let response =  await fetch("http://localhost:3000/products")
+      let data = await response.json();
+      console.log(typeof data, data[0]);
+      data.forEach((item, index)=>{
+       price= item.price;
+       description = item.description;
+       name = item.name;
+       category = item.category;
+       createProduct();
+      });
     }
-    catch{
-        console.error("Error fetching products:", error);
-    }
-}
-fetchdata();
+
+    fetchdata();
+
+    let allProducts = document.querySelector('.products');
+
+    function createProduct(){
+        let newProduct = document.createElement('div');
+        newProduct.classList.add('card');
+
+        let productimg =  document.createElement('img');
+        productimg.classList.add("product-img");
+        productimg.src = "images/keyboard 1.png"
+        newProduct.appendChild(productimg);
+    
+        let productName = document.createElement('h3');
+        productName.classList.add('product-info');
+        productName.innerText = name;
+        newProduct.appendChild(productName);
+    
+        let productPrice = document.createElement('h4');
+        productPrice.classList.add('product-info');
+        productPrice.innerText = price;
+        newProduct.appendChild(productPrice);
+    
+        let productDescription = document.createElement('p');
+        productDescription.classList.add('card');
+        productDescription.innerText = description;
+        newProduct.appendChild(productDescription);
+    
+
+        let buybtn = document.createElement('button');
+        buybtn.innerText = "Buy Now";
+        buybtn.classList.add('buy');
+        newProduct.appendChild(buybtn);
+        buybtn.addEventListener('click', ()=>{
+            console.log('button is clicked')
+        })
+       
+        allProducts.appendChild(newProduct);
+    }   
+console.log(buybtn)
