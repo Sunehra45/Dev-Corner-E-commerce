@@ -289,21 +289,40 @@ font-weight: 700;
     gap: 30px;
     margin-top: 8vw;
 }
+
 .card{
     width: 20vmax;
     height: 50vh;
     border: 2px solid;
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
+    background-color: white;
 }
-.product-info , .buy{
-    display: flex;
+.card button{
+    width: 40px;
+    height: 50px;
+    cursor: pointer;
+}
+.card p {
+    font-size: 18px;
+    font-weight: 400;
+    border: none;
+    text-align: left;
+    width: 80%;
+    margin-top: 3px;
+}
+.product-info{
+    display:flex;
+    width: 80%;
+    justify-content: space-between;
+    align-items: center;
 }
 .product-img{
-    width: 80%;
-    height: 60%;
-    border: 2px solid;
+    width: 85%;
+    height: 70%;
+    object-fit: cover;
+    margin-top: 10px;
 }
 
 footer{
