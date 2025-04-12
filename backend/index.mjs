@@ -13,36 +13,56 @@ Router.use(express.static('frontend'));  // serve static frontend files
 Router.get('/',(req,res)=>{
     res.sendFile(__dirname + "/../frontend/index.html")
     (console.log('yeah got you'));
-  
 })
-
+// Database
 async function  connectDB(){
     try {
-        await  mongoose.connect("mongodb://127.0.0.1:27017/ecommerceProject") 
+        await  mongoose.connect("mongodb://127.0.0.1:27017/ecommerceProject") ;
         console.log("mongodb connected") ;
     } catch (error) {
         if(error) console.log( "Problem in Db connection", error);
         process.exit(1);
     }
 };
+async function insertData (){
+   try{
+       const count = product.countDocuments();
+       if(count === 0){
+           product.insertMany(productInfo);
+           console.log("Documents Inserted in MongoDb")
+       }
+       else{
+           console.log("This data already exists")
+       }
+   }
+  catch{
+   console.log("some erro occured")
+  }
+}
 connectDB();
+insertData();
 
+//handling Routes
 Router.get('/products', async (req,res)=>{
     try {
         const  productdata = await product.find();  
+        console.log("products fetched from database")
         res.json(productdata)  
     } catch (error) {
         res.status(500).json({ message: "Error fetching products", error });
         console.log(error);
     }
 })
-
-
-product.insertMany(productInfo)
-.then(() => {
-    console.log('Data inserted successfully');
+Router.get('/filter', async (req,res)=>{
+    try {
+        const productdata = await product.find({ category: "Laptops" }); 
+        console.log("laptops fetched from database")
+        res.json(productdata)  
+    } catch (error) {
+        res.status(500).json({ message: "Error fetching products", error });
+        console.log(error);
+    }
 })
-.catch(err => console.error('Insert failed', err));
 
 app.use(Router);
 app.listen(port,(err)=>{
