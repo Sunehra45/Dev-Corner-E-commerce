@@ -1,4 +1,7 @@
 let header = document.querySelector('header');
+let filterOption = document.querySelectorAll('input[name="category"]');
+console.log(filterOption,typeof filterOption);
+
 //navbar bg active
 window.addEventListener('scroll',function(){
 if(window.innerHeight + window.scrollY > window.outerHeight - 10){
@@ -58,15 +61,14 @@ checkboxes.forEach(checkbox => {
     })
 });
 
-let removeFilter = document.querySelectorAll('#cross');
-
+// let removeFilter = document.querySelectorAll('#cross');
 // products data show --fetch from backend
+
 
 let name;
 let category;
 let description; 
-let price ;
-
+let price ; 
 async function fetchdata (){
      let response =  await fetch("http://localhost:3000/products")
       let data = await response.json();
@@ -79,11 +81,8 @@ async function fetchdata (){
        createProduct();
       });
     }
-
     fetchdata();
-
     let allProducts = document.querySelector('.products');
-
     function createProduct(){
         let newProduct = document.createElement('div');
         newProduct.classList.add('card');
@@ -118,5 +117,29 @@ async function fetchdata (){
         })
        
         allProducts.appendChild(newProduct);
-    }   
-console.log(buybtn)
+    }  
+
+filterOption.forEach(option => {
+  option.addEventListener("click", ()=>{
+      let category = event.target.value;
+      console.log(category)
+      try {
+           fetch("http://localhost:3000/filter",{
+            method : "GET",
+            headers:{
+                "Content-Type": "application/json",
+                "Product-Category" : `${category}`,
+            }
+           })
+          .then(response => response.json())
+          .then(data => {
+            console.log("Fetched data:", data);
+          })
+      } catch (error) {
+        console.log("some error in fetching data")
+      }
+    })
+});
+
+
+
