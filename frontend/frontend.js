@@ -61,62 +61,60 @@ checkboxes.forEach(checkbox => {
     })
 });
 
-// let removeFilter = document.querySelectorAll('#cross');
-// products data show --fetch from backend
+function productdata(item){
+    return Object.assign({},{
+        name  :item.name,
+        price : item.price,  
+        description : item.description,
+        category : item.category })
+}
+let allProducts = document.querySelector('.products');  
+function createProduct({name, price,description,category}){
+    let newProduct = document.createElement('div');
+    newProduct.classList.add('card');
+    
+    let productimg =  document.createElement('img');
+    productimg.classList.add("product-img");
+    productimg.src = "images/keyboard 1.png"
+    newProduct.appendChild(productimg);
+    
+    let productName = document.createElement('h3');
+    productName.classList.add('product-info');
+    productName.innerText = name;
+    newProduct.appendChild(productName);
+    
+    let productPrice = document.createElement('h4');
+    productPrice.classList.add('product-info');
+    productPrice.innerText = price;
+    newProduct.appendChild(productPrice);
+    
+    let productDescription = document.createElement('p');
+    productDescription.classList.add('card');
+    productDescription.innerText = description;
+    newProduct.appendChild(productDescription);
+    
+    
+    let buybtn = document.createElement('button');
+    buybtn.innerText = "Buy Now";
+    buybtn.classList.add('buy');
+    newProduct.appendChild(buybtn);
+    buybtn.addEventListener('click', ()=>{
+        console.log('button is clicked')
+    })
+    
+    allProducts.appendChild(newProduct);
+}  
 
 
-let name;
-let category;
-let description; 
-let price ; 
+//Fetching products from backend
 async function fetchdata (){
      let response =  await fetch("http://localhost:3000/products")
       let data = await response.json();
       console.log(typeof data, data[0]);
       data.forEach((item, index)=>{
-       price= item.price;
-       description = item.description;
-       name = item.name;
-       category = item.category;
-       createProduct();
+                   productdata(item)
+                   createProduct(item);
       });
-    }
-    fetchdata();
-    let allProducts = document.querySelector('.products');
-    function createProduct(){
-        let newProduct = document.createElement('div');
-        newProduct.classList.add('card');
-
-        let productimg =  document.createElement('img');
-        productimg.classList.add("product-img");
-        productimg.src = "images/keyboard 1.png"
-        newProduct.appendChild(productimg);
-    
-        let productName = document.createElement('h3');
-        productName.classList.add('product-info');
-        productName.innerText = name;
-        newProduct.appendChild(productName);
-    
-        let productPrice = document.createElement('h4');
-        productPrice.classList.add('product-info');
-        productPrice.innerText = price;
-        newProduct.appendChild(productPrice);
-    
-        let productDescription = document.createElement('p');
-        productDescription.classList.add('card');
-        productDescription.innerText = description;
-        newProduct.appendChild(productDescription);
-    
-
-        let buybtn = document.createElement('button');
-        buybtn.innerText = "Buy Now";
-        buybtn.classList.add('buy');
-        newProduct.appendChild(buybtn);
-        buybtn.addEventListener('click', ()=>{
-            console.log('button is clicked')
-        })
-       
-        allProducts.appendChild(newProduct);
     }  
 
 filterOption.forEach(option => {
@@ -132,14 +130,18 @@ filterOption.forEach(option => {
             }
            })
           .then(response => response.json())
-          .then(data => {
-            console.log("Fetched data:", data);
+          .then( data => {
+            allProducts.innerHTML = "";
+            data.forEach((item, index)=>{
+            productdata(item);
+            createProduct(item);
+              });
           })
       } catch (error) {
         console.log("some error in fetching data")
       }
     })
 });
-
+fetchdata();
 
 
