@@ -66,10 +66,13 @@ function productdata(item){
         name  :item.name,
         price : item.price,  
         description : item.description,
-        category : item.category })
+        category : item.category,
+     })
 }
+
 let allProducts = document.querySelector('.products');  
-function createProduct({name, price,description,category}){
+function createProduct(product,productdata){
+    const {name, price,description,category} = product;
     let newProduct = document.createElement('div');
     newProduct.classList.add('card');
     
@@ -99,20 +102,31 @@ function createProduct({name, price,description,category}){
     buybtn.classList.add('buy');
     newProduct.appendChild(buybtn);
     buybtn.addEventListener('click', ()=>{
-        console.log('button is clicked')
+
+        console.log('button is clicked');
+        console.log(product.category);
+
+        const selectedProduct = {
+            name : product.name,
+            price : product.price,
+            description : product.description,
+            category : product.category
+        }
+        const formatedData = Object.assign({},selectedProduct)
+        localStorage.setItem("product" , JSON.stringify(formatedData));
+        window.location.href = "product.html";
     })
     
     allProducts.appendChild(newProduct);
 }  
-
-
 //Fetching products from backend
 async function fetchdata (){
      let response =  await fetch("http://localhost:3000/products")
       let data = await response.json();
       console.log(typeof data, data[0]);
       data.forEach((item, index)=>{
-                   productdata(item)
+                   productdata(item);
+                //    console.log(productdata(item))
                    createProduct(item);
       });
     }  
@@ -143,5 +157,7 @@ filterOption.forEach(option => {
     })
 });
 fetchdata();
+
+
 
 
