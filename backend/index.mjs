@@ -14,7 +14,8 @@ Router.get('/',(req,res)=>{
     res.sendFile(__dirname + "/../frontend/index.html")
     (console.log('yeah got you'));
 })
-// Database
+
+// Database Connection 
 async function  connectDB(){
     try {
         await  mongoose.connect("mongodb://127.0.0.1:27017/ecommerceProject") ;
@@ -42,7 +43,7 @@ async function insertData (){
 connectDB();
 insertData();
 
-//handling Routes
+//Handling Routes
 Router.get('/products', async (req,res)=>{
     try {
         const  productdata = await product.find();  
@@ -54,9 +55,11 @@ Router.get('/products', async (req,res)=>{
     }
 })
 Router.get('/filter', async (req,res)=>{
+    console.log(req.headers['product-category']);
+    let query = req.headers['product-category'];
     try {
-        const productdata = await product.find({ category: "Laptops" }); 
-        console.log("laptops fetched from database")
+        const productdata = await product.find({"category" : {$eq : `${query}`}}); 
+        console.log(`${query}fetched from database`);
         res.json(productdata)  
     } catch (error) {
         res.status(500).json({ message: "Error fetching products", error });
