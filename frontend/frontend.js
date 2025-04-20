@@ -12,7 +12,18 @@ else {
 }
 })
 
-// filter section:
+//Hero section image animation
+const image = document.querySelector('.animated-img');
+let imageSrc = ['images/keyboard 2.png', 'images/img 4.png'];
+let currentIndex = 0;
+  setInterval(() => {
+    currentIndex = (currentIndex + 1) % imageSrc.length;
+    image.src = imageSrc[currentIndex];
+    image.classList.remove('animated-img');
+    void image.offsetWidth; // this forces reflow (refreshes animation)
+    image.classList.add('animated-img');
+  }, 4000); 
+
 let openfilter = document.querySelector('.open-filter'); 
 let closefilter = document.querySelector('.close-btn');
 
@@ -71,6 +82,7 @@ function productdata(item){
 }
 
 let allProducts = document.querySelector('.products');  
+
 function createProduct(product,productdata){
     const {name, price,description,category} = product;
     let newProduct = document.createElement('div');
@@ -90,13 +102,8 @@ function createProduct(product,productdata){
     productPrice.classList.add('product-info');
     productPrice.innerText = price;
     newProduct.appendChild(productPrice);
-    
-    let productDescription = document.createElement('p');
-    productDescription.classList.add('card');
-    productDescription.innerText = description;
-    newProduct.appendChild(productDescription);
-    
-    
+
+
     let buybtn = document.createElement('button');
     buybtn.innerText = "Buy Now";
     buybtn.classList.add('buy');

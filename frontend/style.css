@@ -1,13 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
-
 *{
     margin: 0;padding: 0;
 }
 :root{
     --font-size: 1.5rem;
     --dark-grey : #3d3a36;
-    --light-grey : #e8e8e3;
+    --light-grey : #f5f5ee;
     --white:#feffff;
+    --primarycolor :hsl(26, 100%, 55%);
     --space: 20px;
     --heading-font : ;
     --Navigation-font:'Sulphur Point'; 
@@ -119,38 +119,65 @@ li:hover{
     align-items: center;
     gap: 30px;
 }
+
+hr{
+    width: 85%;
+    margin: auto;  
+}
 /* Code For Hero Section content */
 section{
-    width: 100vw;
-    height: 90vh;
+     width: 100vw;
+     height: 90vh;
      box-sizing: border-box;
      display: grid;
      grid-template-columns: 1fr 1fr;
      grid-template-rows: auto auto; 
      row-gap: 0px;
+     
 }
 .left-content, .right-content{
     height: 80vh;  
 }
 .right-content{
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    border: 2px solid black;
+    justify-content: flex-start;
+    /* background-color: palegoldenrod; */
 }
+/* Hero Section Animation */
 .Slider{
-    width: 32vw;
-    height: 70%;
-    border: 2px solid;
-    position: absolute;
+    margin-left: 2vw;
+    margin-bottom: 4vw;
+    width: 40vw;
+    height: 80%;
+    position: relative;
+    top:15%;
+    left: 10%;
 }
-.Slider img{
+.Slider img {
     object-fit: cover;
     height: 100%;
-    position: absolute;
-}
+    position: relative;
+  }
+  .animated-img {
+    animation: rippleZoom 1.2s ease forwards;
+  }
+  @keyframes rippleZoom {
+    0% {
+      transform: scale(1) translateZ(0);
+      filter: blur(0px);
+      opacity: 1;
+    }
+    50% {
+      transform: scale(1.05);
+      filter: blur(2px);
+    }
+    100% {
+      transform: scale(1);
+      filter: blur(0px);
+    }
+  }
 
+ 
 /* Animated logos   */
  .logos-slider{
     mask-image: linear-gradient(to right, transparent 10%, #c2b8b8 40%, #c2b8b8 60%, transparent 95%);
@@ -194,10 +221,6 @@ object-fit: cover;
         left : -100%
     }
 }
-
-
-
-
 .Personalized-Feature{
     display: flex;
     gap: 30px;
@@ -311,11 +334,21 @@ font-weight: 700;
     flex-direction: column;
     align-items: center;
     background-color: white;
+    /* transition: all 2s ease-out ; */
 }
+/* .card :hover{
+    width:21vmax;
+    height: 52vh;
+} */
 .card button{
-    width: 40px;
-    height: 50px;
+    width: 120px;
+    height: 45px;
     cursor: pointer;
+    background-color: var(--primarycolor);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 20px;
 }
 .card p {
     font-size: 18px;
