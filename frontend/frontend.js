@@ -78,36 +78,60 @@ function productdata(item){
         price : item.price,  
         description : item.description,
         category : item.category,
+        image : item.image,
      })
 }
 
 let allProducts = document.querySelector('.products');  
-
 function createProduct(product,productdata){
-    const {name, price,description,category} = product;
+    const {name, price,description,category,image} = product;
     let newProduct = document.createElement('div');
     newProduct.classList.add('card');
     
     let productimg =  document.createElement('img');
     productimg.classList.add("product-img");
-    productimg.src = "images/keyboard 1.png"
+    productimg.src = "images/uploadstablet-ipad-pro.jpg";
     newProduct.appendChild(productimg);
     
-    let productName = document.createElement('h3');
-    productName.classList.add('product-info');
-    productName.innerText = name;
-    newProduct.appendChild(productName);
+    let infoWrapper = document.createElement('div');
+    infoWrapper.classList.add('product-info'); 
     
-    let productPrice = document.createElement('h4');
-    productPrice.classList.add('product-info');
+    let productName = document.createElement('h3');
+    productName.style.wordbreak = "break-word";
+    productName.innerText = name;
+    
+    let productPrice = document.createElement('h2');
     productPrice.innerText = price;
-    newProduct.appendChild(productPrice);
+    
+    infoWrapper.appendChild(productName);
+    infoWrapper.appendChild(productPrice);
+    newProduct.appendChild(infoWrapper);
 
 
+    let buysection = document.createElement('div'); 
+    buysection.classList.add('buy'); 
+    
     let buybtn = document.createElement('button');
     buybtn.innerText = "Buy Now";
-    buybtn.classList.add('buy');
-    newProduct.appendChild(buybtn);
+    buybtn.classList.add('buy-btn');
+    buysection.appendChild(buybtn);
+    
+    // Generate random rating
+    let rating = Math.floor(Math.random() * 5) + 1;
+    let stars = document.createElement('div');
+    stars.classList.add('stars'); 
+    
+    for (let i = 1; i <= 5; i++) {
+      let star = document.createElement('span');
+      star.innerHTML = i <= rating ? '★' : '☆';
+      star.style.color = '#ffbf00';
+      star.style.fontSize = '20px';
+      stars.appendChild(star);
+    }
+    
+    buysection.appendChild(stars);
+    newProduct.appendChild(buysection);
+
     buybtn.addEventListener('click', ()=>{
 
         console.log('button is clicked');
@@ -133,7 +157,6 @@ async function fetchdata (){
       console.log(typeof data, data[0]);
       data.forEach((item, index)=>{
                    productdata(item);
-                //    console.log(productdata(item))
                    createProduct(item);
       });
     }  
