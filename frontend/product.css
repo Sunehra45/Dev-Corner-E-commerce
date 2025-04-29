@@ -1,14 +1,17 @@
+@import url("https://fonts.gstatic.com/s/raleway/v34/1Ptug8zYS_SKggPNyCMIT5lu.woff2");
+:root{
+    --font-family: 'Raleway';
+   --font-style: normal;
+}
 .container{
     width: 60vw;
     height: 70vh;
-    background-color: lightblue;
+    border: 1px solid grey;
     margin: auto;
-    margin-top: 2vw;
+    margin-top: 5vw;
     display: flex;
-
 }
 .leftcontent{
-    background-color: red;
     width: 50%;
     height: 100%;
     display: flex;
@@ -16,23 +19,53 @@
 }
 img{
     width: 100%;
-    height: 90%;
+    height: 100%;
+    object-fit: cover;
 }
 .rightContent{
     width: 40%;
     height: 60%;
-    background-color: blueviolet;
     margin-top:10% ;
     margin-left: 4%;
 }
+h4{
+    font-size: 18px;
+}
+p{
+    font-size: 22px;
+}
+.button{
+    width:45%;
+    height: 6vh;
+    border-radius: 4px;
+    display: flex;
+    background-color: rgb(208, 212, 216);
+    align-items: center;
+}
+.button button{
+    background-color: transparent;
+    font-size: 30px;
+    border: none;
+    cursor: pointer;
+}
 .buy{
     display: flex;
-    width: 60%;
+    width: 100%;
     height: 25%;
-    background-color: aqua;
-    justify-content: space-between;
+    align-items: center;
+    justify-content: center;
+    gap:50px;
 }
 .buy button{
  width: 6vw;
  height: 5vh;
+}
+.cart button{
+    width: 09vw;
+    background-color: #FF9149; 
+    height: 6vh;
+    border-radius: 4px;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
 }
