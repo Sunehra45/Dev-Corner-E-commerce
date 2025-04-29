@@ -8,8 +8,8 @@ const Router = express.Router();
 const app = express();
 const port = 3000;
 
-Router.use(express.static('frontend'));  // serve static frontend files
-
+// Router.use(express.static('frontend/images'));  // serve static frontend files
+app.use( express.static('frontend'));
 Router.get('/',(req,res)=>{
     res.sendFile(__dirname + "/../frontend/index.html")
     (console.log('yeah got you'));

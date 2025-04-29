@@ -90,7 +90,12 @@ function createProduct(product,productdata){
     
     let productimg =  document.createElement('img');
     productimg.classList.add("product-img");
-    productimg.src = "images/uploadstablet-ipad-pro.jpg";
+    function normalizeImagePath(path) {
+        return path.split(/[\\/]/).pop();
+      }  //clearing backend path image
+      productimg.src = `/images/${normalizeImagePath(image)}`;
+    console.log('Image SRC:', productimg.src);
+    // console.log(productimg.src);
     newProduct.appendChild(productimg);
     
     let infoWrapper = document.createElement('div');
