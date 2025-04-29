@@ -83,78 +83,92 @@ function productdata(item){
 }
 
 let allProducts = document.querySelector('.products');  
-function createProduct(product,productdata){
-    const {name, price,description,category,image} = product;
+function createProduct(product) {
+    const { name, price, description, category, image } = product;
+    console.log(image);
+
     let newProduct = document.createElement('div');
     newProduct.classList.add('card');
-    
-    let productimg =  document.createElement('img');
+
+    let productimg = document.createElement('img');
     productimg.classList.add("product-img");
-    function normalizeImagePath(path) {
-        return path.split(/[\\/]/).pop();
-      }  //clearing backend path image
-      productimg.src = `/images/${normalizeImagePath(image)}`;
-    console.log('Image SRC:', productimg.src);
-    // console.log(productimg.src);
+
+    // Remove '/uploads/' from the image path if it exists
+    const cleanedImagePath = image.replace('/uploads/', '');
+    const imagePath = `/images/${cleanedImagePath}`;
+
+    // Check if the image exists
+    fetch(imagePath, { method: 'HEAD' })
+        .then((response) => {
+            if (response.ok) {
+                productimg.src = imagePath; // Use the valid image path
+            } else {
+                productimg.src = 'images/uploadslaptop-hp-spectre.jpg'; 
+            }
+        })
+        .catch(() => {
+            productimg.src = '/images/placeholder.jpg'; // Use a fallback image in case of an error
+        });
+
+
     newProduct.appendChild(productimg);
-    
+
     let infoWrapper = document.createElement('div');
-    infoWrapper.classList.add('product-info'); 
-    
+    infoWrapper.classList.add('product-info');
+
     let productName = document.createElement('h3');
-    productName.style.wordbreak = "break-word";
+    productName.style.wordBreak = "break-word";
     productName.innerText = name;
-    
+
     let productPrice = document.createElement('h2');
     productPrice.innerText = price;
-    
+
     infoWrapper.appendChild(productName);
     infoWrapper.appendChild(productPrice);
     newProduct.appendChild(infoWrapper);
 
+    let buysection = document.createElement('div');
+    buysection.classList.add('buy');
 
-    let buysection = document.createElement('div'); 
-    buysection.classList.add('buy'); 
-    
     let buybtn = document.createElement('button');
     buybtn.innerText = "Buy Now";
     buybtn.classList.add('buy-btn');
     buysection.appendChild(buybtn);
-    
+
     // Generate random rating
     let rating = Math.floor(Math.random() * 5) + 1;
     let stars = document.createElement('div');
-    stars.classList.add('stars'); 
-    
+    stars.classList.add('stars');
+
     for (let i = 1; i <= 5; i++) {
-      let star = document.createElement('span');
-      star.innerHTML = i <= rating ? '★' : '☆';
-      star.style.color = '#ffbf00';
-      star.style.fontSize = '20px';
-      stars.appendChild(star);
+        let star = document.createElement('span');
+        star.innerHTML = i <= rating ? '★' : '☆';
+        star.style.color = '#ffbf00';
+        star.style.fontSize = '20px';
+        stars.appendChild(star);
     }
-    
+
     buysection.appendChild(stars);
     newProduct.appendChild(buysection);
 
-    buybtn.addEventListener('click', ()=>{
-
+    buybtn.addEventListener('click', () => {
         console.log('button is clicked');
         console.log(product.category);
 
         const selectedProduct = {
-            name : product.name,
-            price : product.price,
-            description : product.description,
-            category : product.category
-        }
-        const formatedData = Object.assign({},selectedProduct)
-        localStorage.setItem("product" , JSON.stringify(formatedData));
+            name: product.name,
+            price: product.price,
+            description: product.description,
+            category: product.category
+        };
+        const formatedData = Object.assign({}, selectedProduct);
+        localStorage.setItem("product", JSON.stringify(formatedData));
         window.location.href = "product.html";
-    })
-    
+    });
+
     allProducts.appendChild(newProduct);
 }  
+
 //Fetching products from backend
 async function fetchdata (){
      let response =  await fetch("http://localhost:3000/products")
