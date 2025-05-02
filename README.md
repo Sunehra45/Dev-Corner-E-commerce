@@ -19,9 +19,10 @@ Navigate to the project folder
 
 Run the following commands:
 
-`` bash
+```bash
 npm install express
-npm install mongoose ```
+npm install mongoose 
+```
 
 Make sure your MongoDB server is running
 Start the server and open the site in your browser.
