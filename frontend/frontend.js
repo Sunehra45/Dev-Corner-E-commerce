@@ -1,8 +1,6 @@
 let header = document.querySelector('header');
 let filterOption = document.querySelectorAll('input[name="category"]');
-console.log(filterOption,typeof filterOption);
 
-//navbar bg active
 window.addEventListener('scroll',function(){
 if(window.innerHeight + window.scrollY > window.outerHeight - 10){
     header.classList.add("scrolled");
@@ -24,55 +22,16 @@ let currentIndex = 0;
     image.classList.add('animated-img');
   }, 4000); 
 
-let openfilter = document.querySelector('.open-filter'); 
-let closefilter = document.querySelector('.close-btn');
-
-function toggleFilter() {
- document.getElementById("filterBox").classList.toggle("hidden");
- if(toggleFilter){
-    if (openfilter.innerText === "Show Filter") {
-        openfilter.innerText = "Hide Filter";
-    } else {
-        openfilter.innerText = "Show Filter";
-    }
-}
-}
-closefilter.addEventListener('click',toggleFilter);
-openfilter.addEventListener('click',()=>{
-    toggleFilter();
-   
-});
-
-let checkboxes = document.querySelectorAll("input[type='checkbox']");
-let filterOptions = document.querySelector('.slection');
-
-checkboxes.forEach(checkbox => {
-    checkbox.addEventListener("change",()=>{
-
-    let newOption =  document.createElement('div');
-    newOption.classList.add('selected');
-    newOption.innerText = checkbox.value  + " ";
-    newOption.style.visibility = "visible"
-
-    let removeBtn = document.createElement("span");
-    removeBtn.innerText = "X";
-    removeBtn.style.fontWeight = "800";
-    removeBtn.style.cursor = "pointer";
-
-    removeBtn.addEventListener("click", () => {
-        newOption.remove();
-        checkbox.checked = false; // Uncheck the checkbox if needed
-    });  
-
-    newOption.appendChild(removeBtn);
-
-    if (filterOptions) {
-        filterOptions.appendChild(newOption);
-    }
-    })
-});
-
-function productdata(item){
+//Fetching products from backend 
+async function fetchdata (){
+    let response =  await fetch("http://localhost:3000/products")
+     let data = await response.json();
+     data.forEach((item, index)=>{
+                  productdata(item);
+                  createProduct(item);
+     });
+   } 
+   function productdata(item){
     return Object.assign({},{
         name  :item.name,
         price : item.price,  
@@ -85,7 +44,6 @@ function productdata(item){
 let allProducts = document.querySelector('.products');  
 function createProduct(product) {
     const { name, price, description, category, image } = product;
-    console.log(image);
 
     let newProduct = document.createElement('div');
     newProduct.classList.add('card');
@@ -101,7 +59,7 @@ function createProduct(product) {
     fetch(imagePath, { method: 'HEAD' })
         .then((response) => {
             if (response.ok) {
-                productimg.src = imagePath; // Use the valid image path
+                productimg.src = imagePath; 
             } else {
                 productimg.src = 'images/uploadslaptop-hp-spectre.jpg'; 
             }
@@ -159,7 +117,8 @@ function createProduct(product) {
             name: product.name,
             price: product.price,
             description: product.description,
-            category: product.category
+            category: product.category,
+            image : product.image,
         };
         const formatedData = Object.assign({}, selectedProduct);
         localStorage.setItem("product", JSON.stringify(formatedData));
@@ -168,44 +127,106 @@ function createProduct(product) {
 
     allProducts.appendChild(newProduct);
 }  
+fetchdata();
 
-//Fetching products from backend
-async function fetchdata (){
-     let response =  await fetch("http://localhost:3000/products")
-      let data = await response.json();
-      console.log(typeof data, data[0]);
-      data.forEach((item, index)=>{
-                   productdata(item);
-                   createProduct(item);
-      });
-    }  
+//Filter Section
+let openfilter = document.querySelector('.open-filter'); 
+let closefilter = document.querySelector('.close-btn');
 
-filterOption.forEach(option => {
-  option.addEventListener("click", ()=>{
-      let category = event.target.value;
-      console.log(category)
-      try {
-           fetch("http://localhost:3000/filter",{
-            method : "GET",
-            headers:{
-                "Content-Type": "application/json",
-                "Product-Category" : `${category}`,
-            }
-           })
-          .then(response => response.json())
-          .then( data => {
-            allProducts.innerHTML = "";
-            data.forEach((item, index)=>{
-            productdata(item);
-            createProduct(item);
-              });
-          })
-      } catch (error) {
-        console.log("some error in fetching data")
-      }
+function toggleFilter() {
+ document.getElementById("filterBox").classList.toggle("hidden");
+ if(toggleFilter){
+    if (openfilter.innerText === "Show Filter") {
+        openfilter.innerText = "Hide Filter";
+    } else {
+        openfilter.innerText = "Show Filter";
+    }
+}
+}
+closefilter.addEventListener('click',toggleFilter);
+openfilter.addEventListener('click',toggleFilter);
+
+let checkboxes = document.querySelectorAll("input[type='checkbox']");
+let filterOptions = document.querySelector('.slection');
+
+checkboxes.forEach(checkbox => {
+    checkbox.addEventListener("change",(e)=>{
+    if(e.target.checked){
+        let newOption =  document.createElement('div'); 
+        let removeBtn = document.createElement("span");
+        removeBtn.innerText = "X";
+        removeBtn.style.fontWeight = "800";
+        removeBtn.style.cursor = "pointer";
+        newOption.appendChild(removeBtn);
+        newOption.innerText = e.target.value;
+        newOption.classList.add('selected');
+        newOption.style.visibility = "visible"
+        filter();
+    }
+        
+        // let newOption =  document.createElement('div');
+        // let removeBtn = document.createElement("span");
+        // removeBtn.innerText = "X";
+        // removeBtn.style.fontWeight = "800";
+        // removeBtn.style.cursor = "pointer";
+        // newOption.appendChild(removeBtn);
+
+        // newOption.innerText = checkbox.value  + " ";
+         
+        // if(checkbox.checked){
+        //     newOption.classList.add('selected');
+        //     newOption.style.visibility = "visible"
+        //     filter();
+        // }
+      
+        removeBtn.addEventListener("click", () => {
+        newOption.remove();
+        allProducts.innerHTML = "";
+        fetchdata();
+        checkbox.checked = false; // Uncheck the checkbox if needed
+    });  
+
+    if (filterOptions) {
+        filterOptions.appendChild(newOption);
+    }
     })
 });
-fetchdata();
+
+function filter (){
+    let category = event.target.value;
+    try {
+         fetch("http://localhost:3000/filter",{
+          method : "GET",
+          headers:{
+              "Content-Type": "application/json",
+              "Product-Category" : `${category}`,
+          }
+         })
+        .then(response => response.json())
+        .then( data => {
+          allProducts.innerHTML = "";
+          data.forEach((item, index)=>{
+          productdata(item);
+          createProduct(item);
+            });
+        })
+    } catch (error) {
+      console.log("some error in fetching data")
+    }
+}
+
+filterOption.forEach(option => {
+  option.addEventListener("click",()=>{
+    if(option.checked){
+        filter();
+    }
+    else {
+        allProducts.innerHTML = "";
+        fetchdata();
+    }
+  });
+});
+
 
 
 

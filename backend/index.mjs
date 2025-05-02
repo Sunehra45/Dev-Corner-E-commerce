@@ -8,7 +8,6 @@ const Router = express.Router();
 const app = express();
 const port = 3000;
 
-// Router.use(express.static('frontend/images'));  // serve static frontend files
 app.use( express.static('frontend'));
 app.use('/images', express.static('images'));
 Router.get('/',(req,res)=>{
@@ -26,30 +25,21 @@ async function  connectDB(){
         process.exit(1);
     }
 };
-// async function insertData (){
-//    try{
-//        const count = product.countDocuments();
-//        if(count === 0){
-//            product.insertMany(productInfo);
-//            console.log("Documents Inserted in MongoDb")
-//        }
-//        else{
-//            console.log("This data already exists")
-//        }
-//    }
-//   catch{
-//    console.log("some erro occured")
-//   }
-// }
 async function insertData (){
-    try{
-        product.insertMany(productInfo)
-        console.log("Documents Inserted in MongoDb")        
-    }
-    catch{
-        console.log("some erro occured")
-    }}
-
+   try{
+       const count = product.countDocuments();
+       if(count === 0){
+           product.insertMany(productInfo);
+           console.log("Documents Inserted in MongoDb")
+       }
+       else{
+           console.log("This data already exists")
+       }
+   }
+  catch{
+   console.log("some erro occured")
+  }
+}
 
 connectDB();
 insertData();
