@@ -299,22 +299,22 @@ object-fit: cover;
     flex-direction: row-reverse;
 }
 .selected{
-    text-align: center;
     background-color:var(--primarycolor);
     border-radius: 3px;
-    width:fit-content;
+    width: fit-content;
     height: 5vh;
     display: flex;
     align-items: center;
-    padding: 5px;
     justify-content: center;
     gap: 15px;
     visibility: hidden;
+    padding: 5px 5px;
     font-family: var(--Navigation-font);
 }
 .selected span{
+font-weight: 800;
+color: black;
 cursor: pointer;
-font-weight: 700;
 }
 
 /* Products Showcase Code */

@@ -150,35 +150,25 @@ let checkboxes = document.querySelectorAll("input[type='checkbox']");
 let filterOptions = document.querySelector('.slection');
 
 checkboxes.forEach(checkbox => {
-    checkbox.addEventListener("change",(e)=>{
-    if(e.target.checked){
-        let newOption =  document.createElement('div'); 
-        let removeBtn = document.createElement("span");
-        removeBtn.innerText = "X";
-        removeBtn.style.fontWeight = "800";
-        removeBtn.style.cursor = "pointer";
-        newOption.appendChild(removeBtn);
-        newOption.innerText = e.target.value;
-        newOption.classList.add('selected');
-        newOption.style.visibility = "visible"
-        filter();
-    }
-        
-        // let newOption =  document.createElement('div');
-        // let removeBtn = document.createElement("span");
-        // removeBtn.innerText = "X";
-        // removeBtn.style.fontWeight = "800";
-        // removeBtn.style.cursor = "pointer";
-        // newOption.appendChild(removeBtn);
+    checkbox.addEventListener("change",()=>{
 
-        // newOption.innerText = checkbox.value  + " ";
-         
-        // if(checkbox.checked){
-        //     newOption.classList.add('selected');
-        //     newOption.style.visibility = "visible"
-        //     filter();
-        // }
-      
+        let newOption = document.createElement('div');
+        let removeBtn = document.createElement("span");
+
+        newOption.textContent = checkbox.value;
+        removeBtn.innerHTML = "X";
+        
+        newOption.classList.add('selected');
+        newOption.appendChild(removeBtn);
+        
+        newOption.style.display = "none";
+        if(checkbox.checked === true){
+            newOption.style.display = "flex";
+            newOption.style.visibility = "visible"
+        }
+
+        filter();
+        
         removeBtn.addEventListener("click", () => {
         newOption.remove();
         allProducts.innerHTML = "";
