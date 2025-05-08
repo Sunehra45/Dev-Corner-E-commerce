@@ -42,6 +42,7 @@ async function fetchdata (){
 }
 
 let allProducts = document.querySelector('.products');  
+
 function createProduct(product) {
     const { name, price, description, category, image } = product;
 
@@ -164,11 +165,11 @@ checkboxes.forEach(checkbox => {
         newOption.style.display = "none";
         if(checkbox.checked === true){
             newOption.style.display = "flex";
-            newOption.style.visibility = "visible"
+            newOption.style.visibility = "visible";
+            // filter();
+            allProducts.innerHTML = filter();
         }
 
-        filter();
-        
         removeBtn.addEventListener("click", () => {
         newOption.remove();
         allProducts.innerHTML = "";
@@ -182,40 +183,63 @@ checkboxes.forEach(checkbox => {
     })
 });
 
-function filter (){
-    let category = event.target.value;
-    try {
-         fetch("http://localhost:3000/filter",{
-          method : "GET",
-          headers:{
-              "Content-Type": "application/json",
-              "Product-Category" : `${category}`,
-          }
-         })
-        .then(response => response.json())
-        .then( data => {
-          allProducts.innerHTML = "";
-          data.forEach((item, index)=>{
-          productdata(item);
-          createProduct(item);
-            });
-        })
-    } catch (error) {
-      console.log("some error in fetching data")
-    }
-}
 
-filterOption.forEach(option => {
-  option.addEventListener("click",()=>{
-    if(option.checked){
-        filter();
-    }
-    else {
-        allProducts.innerHTML = "";
-        fetchdata();
-    }
-  });
-});
+//  allProducts.innerHTML = ""
+    // let category = event.target.value;
+    //  console.log(category);
+
+function  filter (){
+    // allProducts.innerHTML = ""
+    let selectedCategories = [];
+    filterOption.forEach(option => {
+     if(option.checked === true){
+        selectedCategories.push(option.value);
+     }
+     });
+      console.log(selectedCategories);
+      selectedCategories.forEach(category => {
+        try {
+            fetch("http://localhost:3000/filter",{
+               method : "GET",
+               headers:{
+                   "Content-Type": "application/json",
+                   "Product-Category" : `${category}`,
+               }
+            //    body : JSON.stringify({categories: selectedCategories})
+              })
+             .then(response => response.json())
+             .then( data => {
+               data.forEach((item, index)=>{
+               productdata(item);
+               createProduct(item);
+             });
+             });
+             category.classlist.add("feteched");
+         }
+          catch (error) {
+           console.log("some error in fetching data")
+         }
+      });
+}
+filterOption.forEach(option=>{
+    option.addEventListener("click", filter)
+})
+
+
+
+
+// filterOption.forEach(option => {
+//   option.addEventListener("click",()=>{
+//     if(option.checked){
+//         // filter();
+//         allProducts.innerHTML = filter()
+//     }
+//     else {
+//         allProducts.innerHTML = "";
+//         fetchdata();
+//     }
+//   });
+// });
 
 
 
