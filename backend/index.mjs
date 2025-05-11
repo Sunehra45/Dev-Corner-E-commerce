@@ -12,7 +12,6 @@ app.use( express.static('frontend'));
 app.use('/images', express.static('images'));
 Router.get('/',(req,res)=>{
     res.sendFile(__dirname + "/../frontend/index.html")
-    (console.log('yeah got you'));
 })
 
 // Database Connection 
@@ -48,7 +47,6 @@ insertData();
 Router.get('/products', async (req,res)=>{
     try {
         const  productdata = await product.find();  
-        console.log("products fetched from database")
         res.json(productdata)  
     } catch (error) {
         res.status(500).json({ message: "Error fetching products", error });
@@ -56,12 +54,12 @@ Router.get('/products', async (req,res)=>{
     }
 })
 Router.get('/filter', async (req,res)=>{
-    console.log(req.headers['product-category']);
-    let query = req.headers['product-category'];
+    const rawHeader = req.headers['product-category']; // this is a string
+        const query = JSON.parse(rawHeader); 
+        console.log(query)
     try {
-        const productdata = await product.find({"category" : {$eq : `${query}`}}); 
-        console.log(`${query}fetched from database`);
-        res.json(productdata)  
+        const productdata = await product.find({"category" : { $in: query.categories }}); 
+        res.json(productdata);
     } catch (error) {
         res.status(500).json({ message: "Error fetching products", error });
         console.log(error);
