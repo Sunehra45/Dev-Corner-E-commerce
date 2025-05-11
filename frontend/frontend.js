@@ -183,30 +183,21 @@ checkboxes.forEach(checkbox => {
     })
 });
 
-
-//  allProducts.innerHTML = ""
-    // let category = event.target.value;
-    //  console.log(category);
-
 function  filter (){
-    // allProducts.innerHTML = ""
     let selectedCategories = [];
     filterOption.forEach(option => {
      if(option.checked === true){
-        selectedCategories.push(option.value);
-     }
-     });
-      console.log(selectedCategories);
-      selectedCategories.forEach(category => {
+      selectedCategories.push(option.value);
+     }});
+     console.log(selectedCategories);
         try {
             fetch("http://localhost:3000/filter",{
                method : "GET",
                headers:{
                    "Content-Type": "application/json",
-                   "Product-Category" : `${category}`,
-               }
-            //    body : JSON.stringify({categories: selectedCategories})
-              })
+                   "Product-Category" : JSON.stringify({categories: selectedCategories}),
+                } 
+               })
              .then(response => response.json())
              .then( data => {
                data.forEach((item, index)=>{
@@ -215,31 +206,15 @@ function  filter (){
              });
              });
              category.classlist.add("feteched");
-         }
+           }
           catch (error) {
            console.log("some error in fetching data")
-         }
-      });
+          }
+     
 }
 filterOption.forEach(option=>{
     option.addEventListener("click", filter)
 })
-
-
-
-
-// filterOption.forEach(option => {
-//   option.addEventListener("click",()=>{
-//     if(option.checked){
-//         // filter();
-//         allProducts.innerHTML = filter()
-//     }
-//     else {
-//         allProducts.innerHTML = "";
-//         fetchdata();
-//     }
-//   });
-// });
 
 
 
